@@ -1,0 +1,25 @@
+.header{
+	height: 110px;
+	background-color: #5141EA;
+	padding: 0 100px;
+	display: flex;
+	align-items: center;
+}
+.header-logo{
+	width: 172px;
+	display: flex;
+	align-items: center;
+}
+.header-logo img, .header-icon img{
+	width: 100%;
+}
+.header-icon {
+	width: 62px;
+	display: flex;
+	align-items: center;
+	justify-content: end;
+}
+.header-logo-flex-end{
+	display: flex;
+	justify-content: end;
+}
