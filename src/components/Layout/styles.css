@@ -1,6 +1,6 @@
 .root{
 	width: 100vw;
-	height: 100vh;
+	min-height: 700px;
 	background-color: #03067B;
-	padding: 100px 150px;
+	padding: 100px 100px;
 }

@@ -1,4 +1,9 @@
 import { useState } from 'react'
+
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
 import TextInput from '../../components/Input';
 import Layout from '../../components/Layout';
 import Button from '../../components/Button';
@@ -25,31 +30,34 @@ const Login = () => {
 
 	return (
 		<Layout>
-			<>
-				<div>
-					<h1 className='title'>Login</h1>
-					<p className='subtitle'>¡Bienvenido!</p>
-					<div className='container-form'>
-						<TextInput
-							id="email"
-							name="email"
-							type={'text'}
-							labelComponent={<span>Correo electrónico de DaCodes:</span>}
-							value={credentials.email}
-							onChange={setData}
-						/>
-						<TextInput
-							id="password"
-							name="password"
-							labelComponent={<span>Contraseña:</span>}
-							type={'password'}
-							value={credentials.password}
-							onChange={setData}
-						/>
-						<Button text={'Crear cuenta'} />
+			<div>
+				<h1 className='title'>Login</h1>
+				<p className='subtitle'>¡Bienvenido!</p>
+				<div className='container-form'>
+					<TextInput
+						id="email"
+						name="email"
+						type={'text'}
+						labelComponent={<span>Correo electrónico de DaCodes:</span>}
+						value={credentials.email}
+						onChange={setData}
+					/>
+					<TextInput
+						id="password"
+						name="password"
+						labelComponent={<span>Contraseña:</span>}
+						type={'password'}
+						value={credentials.password}
+						onChange={setData}
+					/>
+					<div className='container-checkbox'>
+						<FormGroup>
+							<FormControlLabel required control={<Checkbox />} label="He leido y acepto los terminos y condiciones" />
+						</FormGroup>
 					</div>
+					<Button text={'Crear cuenta'} />
 				</div>
-			</>
+			</div>
 		</Layout>
 	)
 }
