@@ -1,8 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
+
+import { useDispatch, useSelector } from 'react-redux';
+import { loginSuccess } from '../../store/modules/login';
 
 import TextInput from '../../components/Input';
 import Layout from '../../components/Layout';
@@ -10,6 +13,8 @@ import Button from '../../components/Button';
 import './styles.css';
 
 const Login = () => {
+	const dispatch = useDispatch();
+	const loginState = useSelector((state: any) => state.login);
 	const [credentials, setCredentials] = useState({ email: '', password: '' });
 	const [errorEmail, setErrorEmail] = useState({ valid: true, msg: '' });
 
@@ -19,14 +24,21 @@ const Login = () => {
 		setErrorEmail({ valid: true, msg: '' });
 	}
 
-	const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-		e.preventDefault();
+	const handleSubmit = () => {
 		if (credentials.email.length < 9) {
 			setErrorEmail({ valid: false, msg: 'El email debe tener al menos 9 caracteres' });
 			return;
 		}
+		// Lógica de inicio de sesión
+		// Si el inicio de sesión es exitoso, dispatch(loginSuccess(usuario));
+		dispatch(loginSuccess(credentials));
+		// Si el inicio de sesión falla, dispatch(loginFailure(error));
 		console.log(credentials);
 	}
+
+	useEffect(() => {
+		console.log(loginState)
+	}, [loginState])
 
 	return (
 		<Layout>
@@ -55,7 +67,7 @@ const Login = () => {
 							<FormControlLabel required control={<Checkbox />} label="He leido y acepto los terminos y condiciones" />
 						</FormGroup>
 					</div>
-					<Button text={'Crear cuenta'} />
+					<Button onClick={handleSubmit} text={'Crear cuenta'} />
 				</div>
 			</div>
 		</Layout>

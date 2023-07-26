@@ -1,8 +1,17 @@
 import { Grid } from '@mui/material'
-import './styles.css'
 import logo from '../../assets/img/logo.png'
 import userIcon from '../../assets/img/userIcon.png'
+import './styles.css'
+
+import { useDispatch } from 'react-redux';
+import { logout } from '../../store/modules/login';
 const Header = () => {
+	const dispatch = useDispatch();
+
+	const handleLogout = () => {
+		dispatch(logout());
+	};
+
 	return (
 		<div className={'header'}>
 			<Grid container spacing={2}>

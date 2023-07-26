@@ -1,20 +1,19 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+
 import LoginPage from '../pages/Login';
-
 import Principal from '../pages/Home';
-
 import NotFound from '../pages/NotFound';
 
-
 export const Router = () => {
-	const isLogged = false;
+	const loginState = useSelector((state: any) => state.login);
 
 
 	return (
 		<Routes>
 			<Route
 				path="/"
-				element={isLogged ? <Navigate to="inicio" /> : <LoginPage />}
+				element={loginState.isLoggedIn ? <Navigate to="inicio" /> : <LoginPage />}
 			/>
 			{/** Not Found page */}
 			<Route
@@ -23,12 +22,12 @@ export const Router = () => {
 			/>
 			<Route
 				path="*"
-				element={isLogged ? <Navigate to="inicio" /> : <LoginPage />}
+				element={<NotFound />}
 			/>
 			{/** Protected Routes */}
 			<Route
 				path="inicio"
-				element={<Principal />}
+				element={loginState.isLoggedIn ? <Principal /> : <Navigate to="/" />}
 			/>
 		</Routes>
 	);

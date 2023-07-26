@@ -2,24 +2,38 @@ import Rating from '@mui/material/Rating';
 
 import './styles.css';
 
-const index = () => {
+export interface ICard {
+	dataCard: {
+		adult: boolean,
+		backdrop_path: string,
+		genre_ids: any,
+		id: number,
+		original_language: string,
+		original_title: string,
+		overview: string,
+		popularity: number,
+		poster_path: string,
+		release_date: string,
+		title: string,
+		video: boolean,
+		vote_average: number,
+		vote_count: number
+	}
+}
+const URL_IMAGE = import.meta.env.VITE_URL_IMAGE
+
+const index = ({ dataCard }: ICard) => {
 	return (
-		<div className='card'>
+		<div className='card' style={{ backgroundImage: 'url(' + URL_IMAGE + dataCard.poster_path + ')' }}>
 			<div className='card-content'>
 				<div>
-					<h4>Spider-Man: lejos de casa</h4>
-					<h6>2019 ‧ Acción/Aventura ‧ 2h 10m</h6>
+					<h4>{dataCard.title}</h4>
+					<h6>{dataCard.release_date} ‧ Acción/Aventura ‧ 2h 10m</h6>
 					<p>
-						Peter Parker decide pasar unas merecidas
-						vacaciones en Europa junto a MJ, Ned y el
-						resto de sus amigos. Sin embargo, Peter
-						debe volver a ponerse el traje de Spider-Man
-						cuando Nick Fury le encomienda una nueva
-						misión: frenar el ataque de unas criaturas
-						que están causando el caos en el continente.
+						{dataCard.overview.length > 200 ? dataCard.overview.slice(0, 200) + '...' : dataCard.overview}
 					</p>
 					<div className='rating'>
-						<Rating name="read-only" size={'large'} value={3} readOnly />
+						<Rating name="read-only" size={'large'} value={dataCard.vote_average / 2} readOnly precision={0.5} />
 					</div>
 				</div>
 			</div>
