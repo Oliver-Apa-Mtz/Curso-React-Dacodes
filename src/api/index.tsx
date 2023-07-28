@@ -1,10 +1,11 @@
 import axios from 'axios';
+const TOKEN = import.meta.env.VITE_TOKEN
 
 const options = {
 	method: 'GET',
 	headers: {
 		accept: 'application/json',
-		Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5MjNjM2I2MzMwZDViMzk0ZDQwZGE1NmMyNDIyYmQxNCIsInN1YiI6IjY0YWRkZGI5MWNmZTNhMDEwMTg0NTg1NiIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.frXI5_USdF6cK7f4VAC7wtj3JyX-CK2gHwUk3M2YUcI'
+		Authorization: `Bearer ${TOKEN}`
 	}
 };
 
@@ -16,3 +17,12 @@ export const getItems = async (filter: any, page: any) => {
 		console.error(error);
 	}
 };
+
+export const login = async () => {
+	try {
+		const response = await axios.get(`https://api.themoviedb.org/3/authentication/guest_session/new`, options);
+		return response.data;
+	} catch (error) {
+		console.error(error);
+	}
+}

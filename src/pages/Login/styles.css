@@ -12,4 +12,14 @@
 }
 .container-checkbox{
 	margin: -40px 0 30px;
+	padding-left: 20px;
+}
+.container-checkbox span{
+	font-size: 20px;
+}
+.alertError{
+	margin: 20px 0 40px;
+}
+.labelInput{
+	padding-left: 20px;
 }
