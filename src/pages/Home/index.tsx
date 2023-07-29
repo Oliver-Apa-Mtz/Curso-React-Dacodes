@@ -34,7 +34,7 @@ const dataFilters = [
 ]
 
 const Home = () => {
-	const [filterActive, setFilterActive] = useState(dataFilters[2]);
+	const [filterActive, setFilterActive] = useState(dataFilters[0]);
 	const [items, setItems] = useState([]);
 	const [totalPagination, setTotalPagination] = useState(1);
 	const [loading, setLoading] = useState(false);

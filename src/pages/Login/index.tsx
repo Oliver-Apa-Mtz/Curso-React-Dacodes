@@ -1,11 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import Checkbox from '@mui/material/Checkbox';
 import Alert from '@mui/material/Alert';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../../store/modules/login';
 import { validateEmail } from '../../utils/validation';
 
@@ -64,7 +64,6 @@ const BpCheckedIcon = styled(BpIcon)({
 
 const Login = () => {
 	const dispatch = useDispatch();
-	const loginState = useSelector((state: any) => state.login);
 	const [credentials, setCredentials] = useState({ email: '', password: '' });
 	const [privacy, setPrivacy] = useState(false);
 	const [alert, setAlert] = useState({
@@ -103,7 +102,6 @@ const Login = () => {
 			return;
 		}
 		const data = await login();
-		console.log(data)
 		if (data.success) {
 			const user = {
 				...data,
@@ -111,16 +109,11 @@ const Login = () => {
 				name: 'Oliver'
 			}
 			dispatch(loginSuccess(user));
-			localStorage.setItem('user', user);
+			localStorage.setItem('user', JSON.stringify(user));
 		} else {
 			setAlert({ show: true, severity: 'error', msg: 'Ocurrio un problema, intentalo más tarde' });
 		}
-		console.log(credentials);
 	}
-
-	useEffect(() => {
-		console.log(loginState)
-	}, [loginState])
 
 	return (
 		<Layout>
@@ -146,7 +139,7 @@ const Login = () => {
 					/>
 					<div className='container-checkbox'>
 						<FormGroup>
-							<FormControlLabel required
+							<FormControlLabel
 								control={
 									<Checkbox
 										sx={{

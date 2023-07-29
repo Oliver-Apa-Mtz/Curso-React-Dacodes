@@ -18,10 +18,14 @@
 	display: flex;
 	align-items: center;
 	justify-content: end;
+	cursor: pointer;
 }
 .header-logo-flex-end{
 	display: flex;
 	justify-content: end;
+}
+.menu-header .MuiMenu-paper{
+	margin-top: 70px;
 }
 @media(max-width: 1023px){
 	.header{
