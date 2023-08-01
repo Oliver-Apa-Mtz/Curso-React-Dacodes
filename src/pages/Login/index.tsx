@@ -110,8 +110,13 @@ const Login = () => {
 			}
 			dispatch(loginSuccess(user));
 			localStorage.setItem('user', JSON.stringify(user));
+			resetAlerts();
 		} else {
-			setAlert({ show: true, severity: 'error', msg: 'Ocurrio un problema, intentalo más tarde' });
+			setAlert({
+				show: true,
+				severity: 'error',
+				msg: data.message
+			})
 		}
 	}
 

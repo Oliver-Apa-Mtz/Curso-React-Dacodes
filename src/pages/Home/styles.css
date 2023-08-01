@@ -10,7 +10,13 @@
 	display: flex;
 	flex-wrap: wrap;
 	gap: 20px;
-	justify-content: space-evenly;;
+	justify-content: center;
+}
+.card-skeleton{
+	width: 100%;
+	max-width: 250px;
+	height: 360px !important;
+	border-radius: 50px !important;
 }
 .pagination-container{
 	width: 100%;

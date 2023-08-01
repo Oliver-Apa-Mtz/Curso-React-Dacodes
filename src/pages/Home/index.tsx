@@ -5,6 +5,8 @@ import Nav from '../../components/Nav';
 import Card from '../../components/Card';
 import Loader from '../../components/Loader';
 import Pagination from '@mui/material/Pagination';
+import Skeleton from '@mui/material/Skeleton';
+import Alert from '@mui/material/Alert';
 
 import { getItems } from '../../api';
 
@@ -39,6 +41,11 @@ const Home = () => {
 	const [totalPagination, setTotalPagination] = useState(1);
 	const [loading, setLoading] = useState(false);
 	const [page, setPage] = useState(1);
+	const [alert, setAlert] = useState({
+		show: false,
+		severity: 'error',
+		msg: ''
+	});
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -50,9 +57,22 @@ const Home = () => {
 	const getDataMovies = async (filter: string, page: number) => {
 		setLoading(true);
 		const data = await getItems(filter, page);
-		if (data && data.results.length > 0) {
-			setItems(data.results);
-			setTotalPagination(data.total_pages)
+		if (!data.error) {
+			if (data.results.length > 0) {
+				setItems(data.results);
+				setTotalPagination(data.total_pages)
+			}
+			setAlert({
+				show: false,
+				severity: 'error',
+				msg: ''
+			})
+		} else {
+			setAlert({
+				show: true,
+				severity: 'error',
+				msg: data.message
+			})
 		}
 		setLoading(false);
 	}
@@ -96,6 +116,19 @@ const Home = () => {
 						item.title && item.overview && item.poster_path && <Card key={'card-item' + index} dataCard={item} />
 					))}
 				</div>
+				{items.length === 0 && (
+					<div className='cards-container'>
+						<Skeleton variant="rounded" className='card-skeleton' />
+						<Skeleton variant="rounded" className='card-skeleton' />
+						<Skeleton variant="rounded" className='card-skeleton' />
+						<Skeleton variant="rounded" className='card-skeleton' />
+					</div>
+				)}
+				{(alert.show) && (
+					<div className='alertError'>
+						<Alert severity={'error'} variant="filled">{alert.msg}</Alert>
+					</div>
+				)}
 				<div className='pagination-container'>
 					<Pagination onChange={handleChangePagination} count={totalPagination} page={page} size="large" color="primary" />
 				</div>
