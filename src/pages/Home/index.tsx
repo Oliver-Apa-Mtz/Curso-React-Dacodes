@@ -8,7 +8,10 @@ import Pagination from '@mui/material/Pagination';
 import Skeleton from '@mui/material/Skeleton';
 import Alert from '@mui/material/Alert';
 
-import { getItems } from '../../api';
+import { useDispatch } from 'react-redux';
+import { setGenres } from '../../store/modules/genres';
+
+import { getItems, getGenres } from '../../api';
 
 import './styles.css';
 
@@ -36,6 +39,7 @@ const dataFilters = [
 ]
 
 const Home = () => {
+	const dispatch = useDispatch();
 	const [filterActive, setFilterActive] = useState(dataFilters[0]);
 	const [items, setItems] = useState([]);
 	const [totalPagination, setTotalPagination] = useState(1);
@@ -50,6 +54,7 @@ const Home = () => {
 	useEffect(() => {
 		const fetchData = async () => {
 			getDataMovies(filterActive.key, 1);
+			getCategories();
 		};
 		fetchData();
 	}, []);
@@ -62,6 +67,26 @@ const Home = () => {
 				setItems(data.results);
 				setTotalPagination(data.total_pages)
 			}
+			setAlert({
+				show: false,
+				severity: 'error',
+				msg: ''
+			})
+		} else {
+			setAlert({
+				show: true,
+				severity: 'error',
+				msg: data.message
+			})
+		}
+		setLoading(false);
+	}
+
+	const getCategories = async () => {
+		setLoading(true);
+		const data = await getGenres();
+		if (!data.error) {
+			dispatch(setGenres(data.genres));
 			setAlert({
 				show: false,
 				severity: 'error',
