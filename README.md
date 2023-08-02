@@ -1,6 +1,6 @@
 # Curso React Dacodes
 
-Proyecto para la certificación del curso
+Proyecto para la certificación del curso React.JS Fundamentals
 
 URL del proyecto:
 
