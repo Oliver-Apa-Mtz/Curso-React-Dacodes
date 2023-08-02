@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 
 import Rating from '@mui/material/Rating';
-
-import { useSelector } from 'react-redux';
 
 import './styles.css';
 

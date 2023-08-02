@@ -10,7 +10,6 @@ import Alert from '@mui/material/Alert';
 
 import { useDispatch } from 'react-redux';
 import { setGenres } from '../../store/modules/genres';
-
 import { getItems, getGenres } from '../../api';
 
 import './styles.css';
