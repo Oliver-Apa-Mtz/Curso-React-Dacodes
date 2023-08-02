@@ -36,8 +36,10 @@ const index = ({ dataCard }: ICard) => {
 
 	const getCategories = () => {
 		const categories = dataCard.genre_ids.map((categoriaId: any) => {
-			const item = genresState.genres.find((categoria: any) => categoria.id === categoriaId);
-			return item.name;
+			if (genresState.genres && genresState.genres.length > 0) {
+				const item = genresState.genres.find((categoria: any) => categoria.id === categoriaId);
+				return item.name;
+			}
 		});
 		return categories.join(' / ');
 	}
