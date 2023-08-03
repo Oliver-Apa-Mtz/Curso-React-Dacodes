@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -71,6 +71,7 @@ const Login = () => {
 		severity: 'error',
 		msg: ''
 	});
+	const [disabledLogin, setDisabledLogin] = useState(true);
 
 	const setData = (e: React.ChangeEvent<HTMLInputElement>) => {
 		resetAlerts();
@@ -119,6 +120,14 @@ const Login = () => {
 			})
 		}
 	}
+
+	useEffect(() => {
+		if (!validateEmail(credentials.email) || credentials.password.length < 7 || !privacy) {
+			setDisabledLogin(true);
+		} else {
+			setDisabledLogin(false);
+		}
+	}, [credentials, privacy])
 
 	return (
 		<Layout>
@@ -170,7 +179,7 @@ const Login = () => {
 							<Alert severity={'error'} variant="filled">{alert.msg}</Alert>
 						</div>
 					)}
-					<Button onClick={handleSubmit} text={'Crear cuenta'} />
+					<Button disabled={disabledLogin} onClick={handleSubmit} text={'Crear cuenta'} />
 				</div>
 			</div>
 		</Layout>
